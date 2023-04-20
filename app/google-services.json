@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "803946500691",
+    "project_id": "fir-login-aa62c",
+    "storage_bucket": "fir-login-aa62c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803946500691:android:793815fb547edaaa736ca6",
+        "android_client_info": {
+          "package_name": "com.example.lablogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803946500691-sti8k53jffoceuptaen1dejktmjl3ma7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAw1HYx8YV9xZrW4DpL5mUVOuYJUTaaVRk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803946500691-sti8k53jffoceuptaen1dejktmjl3ma7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
