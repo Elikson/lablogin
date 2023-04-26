@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,12 +18,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private Context context;
 
     private static final String DATABASE_NAME = "person.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String TABLE_NAME = "LAB_DB";
-    private static final String COLUMN_ID = "LAB_DB";
-    private static final String COLUMN_NAME = "PERSON_NAME";
-    private static final String COLUMN_PNUMBER = "PERSON_NUMBER";
+    public static final String COLUMN_ID = "_id";
+    public static final String COLUMN_NAME = "PERSON_NAME";
+    public static final String COLUMN_PNUMBER = "PERSON_NUMBER";
 
     // Creating table query
     private static final String CREATE_TABLE = "create table " + TABLE_NAME + "(" + COLUMN_ID
@@ -39,8 +40,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
     }
 
     void addPerson(String name, String phoneNumber) {
@@ -51,7 +53,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_NAME, name);
         cv.put(COLUMN_PNUMBER, phoneNumber);
 
-        long result = db.update(TABLE_NAME, cv, null, null);
+        long result = db.insert(TABLE_NAME, null, cv);
         Toast.makeText(context, result != -1 ? "Inserido com sucesso!" : "Falha ao inserir!", Toast.LENGTH_SHORT).show();
     }
 
@@ -59,6 +61,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = new String[] { COLUMN_ID, COLUMN_NAME, COLUMN_PNUMBER };
         Cursor cursor = db.query(TABLE_NAME, columns, null, null, null, null, null);
+        Log.i("POO", cursor.getCount() + "");
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -68,5 +71,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void deletePerson(long _id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, COLUMN_ID + "=" + _id, null);
+    }
+
+    public void deleteAll() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE (0 = 0)");
     }
 }
